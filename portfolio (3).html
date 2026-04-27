@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio BTS SIO – EFIA Marseille</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14;
+    --surface: #0e1525;
+    --surface2: #131c30;
+    --border: rgba(99,160,255,0.15);
+    --accent: #4f8fff;
+    --accent2: #7c3aed;
+    --text: #e8edf5;
+    --muted: #6b7a99;
+    --grid-line: rgba(99,160,255,0.05);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.25;
+  }
+  .orb1 { width: 600px; height: 600px; background: var(--accent2); top: -200px; right: -150px; }
+  .orb2 { width: 400px; height: 400px; background: var(--accent); bottom: 200px; left: -150px; }
+
+  main { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 0 4rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(79,143,255,0.08);
+    border: 1px solid rgba(79,143,255,0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+    animation: fadeUp 0.6s ease both;
+  }
+  .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 .line2 {
+    display: block;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-intro {
+    margin-top: 2rem;
+    max-width: 560px;
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.75;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-intro strong { color: var(--text); font-weight: 600; }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin: 3rem 0;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 0; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── BTS SIO SISR CARD ── */
+  .sisr-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .sisr-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .sisr-card p {
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+  }
+  .sisr-card p:last-child { margin-bottom: 0; }
+  .sisr-card strong { color: var(--text); }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1.8rem;
+  }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: rgba(79,143,255,0.08);
+    border: 1px solid rgba(79,143,255,0.18);
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── TRANSITION ── */
+  .transition-line {
+    text-align: center;
+    padding: 3rem 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .transition-line::before,
+  .transition-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── DOCUMENTS GRID ── */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 2rem;
+  }
+
+  .doc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-card:hover {
+    border-color: rgba(79,143,255,0.4);
+    transform: translateY(-3px);
+  }
+  .doc-card.special { border-color: rgba(124,58,237,0.3); }
+  .doc-card.special:hover { border-color: rgba(124,58,237,0.6); }
+
+  .doc-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: rgba(79,143,255,0.1);
+    border: 1px solid rgba(79,143,255,0.15);
+  }
+  .doc-card.special .doc-icon {
+    background: rgba(124,58,237,0.12);
+    border-color: rgba(124,58,237,0.2);
+  }
+
+  .doc-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .doc-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .doc-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(107,122,153,0.6);
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(99,160,255,0.1);
+  }
+  .doc-placeholder::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px dashed var(--muted);
+    opacity: 0.5;
+  }
+
+  /* Fichier de compétences */
+  .competences-card {
+    margin-top: 2rem;
+    background: var(--surface2);
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .competences-card:hover { border-color: rgba(124,58,237,0.5); }
+  .comp-icon {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(124,58,237,0.15);
+    border: 1px solid rgba(124,58,237,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+  }
+  .comp-text h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .comp-text p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .comp-badge {
+    margin-left: auto;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #a78bfa;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 6px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">Portfolio · Élève BTS SIO</div>
+    <h1>
+      Portfolio
+      <span class="line2">BTS SIO SISR</span>
+    </h1>
+    <p class="hero-intro">
+      Je m'appelle <strong>Efia</strong>, étudiante au <strong>lycée Gaspard Monge</strong>.
+      Cette page regroupe l'ensemble de mon parcours réalisé sur <strong>2 ans de BTS SIO</strong> — option
+      SISR (Solutions d'Infrastructure, Systèmes et Réseaux). Vous trouverez ici
+      mes travaux pratiques, projets et compétences acquises au fil de ma formation.
+    </p>
+    <div class="divider"></div>
+  </section>
+
+  <!-- BTS SIO SISR -->
+  <section>
+    <p class="section-label">01 — La formation</p>
+    <h2>C'est quoi le BTS SIO option SISR ?</h2>
+    <div class="sisr-card">
+      <p>
+        Le <strong>BTS Services Informatiques aux Organisations (SIO)</strong> est un diplôme
+        de niveau bac +2 qui forme des techniciens capables de concevoir, déployer et maintenir
+        des solutions informatiques en entreprise.
+      </p>
+      <p>
+        L'option <strong>SISR — Solutions d'Infrastructure, Systèmes et Réseaux</strong> se
+        concentre sur l'administration des systèmes d'exploitation, la gestion des réseaux locaux
+        et étendus, la cybersécurité, ainsi que la virtualisation et les services cloud.
+        Elle prépare aux métiers d'administrateur réseau, technicien systèmes, ou encore
+        responsable infrastructure.
+      </p>
+      <p>
+        En 2 ans, la formation alterne entre cours théoriques, travaux pratiques en labo réseau,
+        et périodes de stage en entreprise — permettant d'acquérir des compétences directement
+        opérationnelles sur des technologies telles que Linux, Windows Server, Cisco, ou encore
+        Active Directory.
+      </p>
+      <div class="tags">
+        <span class="tag">Réseaux TCP/IP</span>
+        <span class="tag">Windows Server</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Virtualisation</span>
+        <span class="tag">Cybersécurité</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">Cisco / Routage</span>
+        <span class="tag">Cloud</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSITION -->
+  <div class="transition-line">Découvrez ci-dessous l'ensemble des travaux réalisés durant ces deux ans</div>
+
+  <!-- DOCUMENTS -->
+  <section>
+    <p class="section-label">02 — Travaux pratiques</p>
+    <h2>Mes TP & documents</h2>
+
+    <div class="docs-grid">
+
+      <!-- TP 1 -->
+      <a class="doc-card" href="tp_decouverte_reseau.pdf" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="doc-icon">🖧</div>
+        <div>
+          <div class="doc-title">Découverte d'un réseau à partir d'un poste de travail</div>
+          <div class="doc-meta">BTS SIO · SISR · 1ère année</div>
+        </div>
+        <div class="doc-placeholder" style="color:var(--accent);border-color:rgba(79,143,255,0.2);">📄 Ouvrir le PDF</div>
+      </a>
+
+      <!-- TP 2 -->
+      <a class="doc-card" href="tp_vsphere.pdf" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="doc-icon">🖥️</div>
+        <div>
+          <div class="doc-title">Installation & Paramétrage VMware vSphere 8.0U1</div>
+          <div class="doc-meta">BTS SIO · SISR · Virtualisation</div>
+        </div>
+        <div class="doc-placeholder" style="color:var(--accent);border-color:rgba(79,143,255,0.2);">📄 Ouvrir le PDF</div>
+      </a>
+
+      <!-- TP 3 -->
+      <a class="doc-card" href="tp_dns.pdf" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="doc-icon">🌐</div>
+        <div>
+          <div class="doc-title">Mise en place d'un serveur DNS & DHCP</div>
+          <div class="doc-meta">BTS SIO · SISR · Réseaux</div>
+        </div>
+        <div class="doc-placeholder" style="color:var(--accent);border-color:rgba(79,143,255,0.2);">📄 Ouvrir le PDF</div>
+      </a>
+
+      <!-- TP 4 -->
+      <a class="doc-card" href="tp_haute_dispo.pdf" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="doc-icon">⚡</div>
+        <div>
+          <div class="doc-title">Haute Disponibilité — Infrastructure réseau</div>
+          <div class="doc-meta">BTS SIO · SISR · Infrastructure</div>
+        </div>
+        <div class="doc-placeholder" style="color:var(--accent);border-color:rgba(79,143,255,0.2);">📄 Ouvrir le PDF</div>
+      </a>
+
+      <!-- TP 5 -->
+      <a class="doc-card" href="tp_ldap.pdf" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="doc-icon">🔐</div>
+        <div>
+          <div class="doc-title">Installation d'un service d'annuaire LDAP</div>
+          <div class="doc-meta">BTS SIO · SISR · Annuaire</div>
+        </div>
+        <div class="doc-placeholder" style="color:var(--accent);border-color:rgba(79,143,255,0.2);">📄 Ouvrir le PDF</div>
+      </a>
+
+      <!-- TP 6 placeholder -->
+      <div class="doc-card">
+        <div class="doc-icon">⚙️</div>
+        <div>
+          <div class="doc-title">TP supplémentaire — À compléter</div>
+          <div class="doc-meta">BTS SIO · SISR</div>
+        </div>
+        <div class="doc-placeholder">Fichier à uploader</div>
+      </div>
+
+    </div>
+
+    <!-- FICHIER DE COMPÉTENCES -->
+    <a class="competences-card" href="competences.pdf" target="_blank" style="text-decoration:none;color:inherit;">
+      <div class="comp-icon">📋</div>
+      <div class="comp-text">
+        <h3>Tableau de synthèse des compétences — Épreuve E5</h3>
+        <p>Tableau récapitulatif BTS SIO SESSION 2026 — toutes les réalisations professionnelles et compétences mises en œuvre.</p>
+      </div>
+      <div class="comp-badge" style="color:#4ade80;background:rgba(74,222,128,0.1);border-color:rgba(74,222,128,0.25);">📄 Ouvrir le PDF</div>
+    </a>
+
+  </section>
+
+  <!-- STAGES -->
+  <section>
+    <p class="section-label">03 — Expériences en entreprise</p>
+    <h2>Attestations de stage</h2>
+    <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem;">
+      Les deux périodes de stage effectuées en entreprise durant le BTS SIO font partie intégrante de la formation. Voici les fiches d'attestation correspondantes.
+    </p>
+
+    <div class="competences-card">
+      <div class="comp-icon">🏢</div>
+      <div class="comp-text">
+        <h3>Attestation de stage — 1ère année</h3>
+        <p>Fiche d'attestation de la période de stage réalisée en 1ère année de BTS SIO.</p>
+      </div>
+      <div class="comp-badge">À uploader</div>
+    </div>
+
+    <div class="competences-card" style="margin-top: 1rem;">
+      <div class="comp-icon">🏢</div>
+      <div class="comp-text">
+        <h3>Attestation de stage — 2ème année</h3>
+        <p>Fiche d'attestation de la période de stage réalisée en 2ème année de BTS SIO.</p>
+      </div>
+      <div class="comp-badge">À uploader</div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>BTS SIO SISR</span>
+    <span>Lycée Gaspard Monge · 2 ans de formation</span>
+    <span>© Portfolio élève</span>
+  </footer>
+
+</main>
+
+</body>
+</html>
